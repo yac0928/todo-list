@@ -70,7 +70,10 @@ app.put('/todos/:id', (req, res) => {
 })
 
 app.delete('/todos/:id', (req, res) => {
-	res.send('delete todo')
+	const id = req.params.id
+	return Todo.destroy({where: {id}})
+		.then(() => res.redirect('/todos'))
+		.catch((err) => console.log(err))
 })
 
 app.listen(port, () => {
